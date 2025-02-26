@@ -104,6 +104,10 @@ spec:
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
           env:
+            - name: ALLOCATION_NODE_LABELS_ENABLED
+              value: {{ .Values.allocation.nodeLabels.enabled | default "true" | quote }}
+            - name: ALLOCATION_NODE_LABELS_INCLUDE_LIST
+              value: {{ .Values.allocation.nodeLabels.includeList | default "node.kubernetes.io/instance-type,topology.kubernetes.io/region,topology.kubernetes.io/zone,node_type" | quote }}
             - name: LOG_LEVEL
               value: {{ .Values.loglevel }}
             - name: CUSTOM_COST_ENABLED
